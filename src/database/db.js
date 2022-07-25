@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { ToastLongComp } from '../function/ToastFunc';
+import { auth } from './authentication'
 
 const addUser = (data) => {
   axios.post(`https://huaweifoodappformyapi.herokuapp.com/api/user`, {
     ...data
   })
     .then(_res => {
-      ToastLongComp('Added to Cart Successfully!');
+      console.log("Account created!");
     }).catch(err => {
       ToastLongComp(err);
     })
@@ -15,7 +16,7 @@ const addUser = (data) => {
 const initializeData = (setCategories, setPopulars, setIsLoading) => {
   axios.all([
     axios.get('http://huaweifoodappformyapi.herokuapp.com/api/categories'),
-    axios.get('http://huaweifoodappformyapi.herokuapp.com/api/products')
+    axios.get('http://huaweifoodappformyapi.herokuapp.com/api/products'),
   ])
     .then(
       axios.spread((categories, products) => {
@@ -89,27 +90,15 @@ const getAllShops = (setAllShops) => {
     })
 }
 
-const getRestaurant = (setRestaurant) => {
-  axios.get('http://huaweifoodappformyapi.herokuapp.com/api/restaurant')
+const getCart = (setCart) => {
+  axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser.uid}`)
     .then(res => {
-      setRestaurant(res.data);
-    })
-}
-
-const getFastfood = (setFastFood) => {
-  axios.get('http://huaweifoodappformyapi.herokuapp.com/api/fastfood')
-    .then(res => {
-      setFastFood(res.data);
+      setCart(res.data?.cart);
     })
 }
 
 const addToCart = (data) => {
-  // axios.get('https://huaweifoodappformyapi.herokuapp.com/api/user/id/62c53c2e5a84ab37bb8e4a5a')
-  //   .then(res => {
-  //     console.log(res.data);
-  //   })
-
-  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/add/62c53c2e5a84ab37bb8e4a5a`, {
+  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/add/${auth.currentUser.uid}`, {
     ...data
   })
     .then(_res => {
@@ -117,8 +106,17 @@ const addToCart = (data) => {
     })
 }
 
+const removeToCart = (data) => {
+  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/remove/${auth.currentUser.uid}`, {
+    ...data
+  })
+    .then(_res => {
+      ToastLongComp('Removed to Cart Successfully!');
+    })
+}
+
 export {
   addUser,
-  initializeData, getCategory, getPopular, getDifferentShop, getAllShops, getRestaurant, getFastfood,
-  addToCart
+  initializeData, getCategory, getPopular, getDifferentShop, getAllShops, getCart,
+  addToCart, removeToCart
 }

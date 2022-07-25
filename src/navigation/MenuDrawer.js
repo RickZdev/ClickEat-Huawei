@@ -8,6 +8,8 @@ import HomeStack from './HomeStack'
 // import OrdersDrawer from '../screens/OrdersDrawer'
 // import OrderHistoryDrawer from '../screens/OrderHistoryDrawer'
 import COLORS from '../global/COLORS'
+import Entypo from 'react-native-vector-icons/Entypo';
+import CustomDrawer from '../components/CustomDrawer'
 // import FONTS from '../global/FONTS'
 
 const Drawer = createDrawerNavigator();
@@ -21,11 +23,16 @@ const MenuDrawer = () => {
           drawerPosition: "left",
           drawerType: 'front',
           drawerLabelStyle: { marginLeft: -20 },
-          drawerActiveBackgroundColor: COLORS.black,
-          drawerActiveTintColor: COLORS.white,
-        }}>
-        {/* drawerContent={props => <CustomDrawer {...props} />} > */}
-        <Drawer.Screen name="HomeStack" component={HomeStack} />
+          drawerActiveBackgroundColor: COLORS.primary,
+          drawerActiveTintColor: COLORS.black,
+        }}
+        drawerContent={props => <CustomDrawer {...props} />}
+      >
+        <Drawer.Screen name="HomeStack" component={HomeStack}
+          options={{
+            drawerLabel: 'Home',
+            drawerIcon: ({ size, color }) => <Entypo name="home" size={size} color={color} />,
+          }} />
         {/* <Drawer.Screen name="OrdersDrawer" component={OrdersDrawer}
           options={{
             drawerLabel: 'Track My Orders',

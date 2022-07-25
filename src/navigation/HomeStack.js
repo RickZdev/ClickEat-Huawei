@@ -2,6 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import HomeScreen from '../screens/HomeScreen'
+import CartScreen from '../screens/CartScreen'
 import ProductScreen from '../screens/ProductScreen'
 import ShopScreen from '../screens/ShopScreen'
 import ItemScreen from '../screens/ItemScreen'
@@ -15,6 +16,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} >
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="CartScreen" component={CartScreen} />
       <Stack.Screen name="ProductScreen" component={ProductScreen} />
       <Stack.Screen name="ShopScreen" component={ShopScreen} />
       <Stack.Screen name="ItemScreen" component={ItemScreen} />

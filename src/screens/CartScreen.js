@@ -1,52 +1,35 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import HeaderComp from '../components/HeaderComp';
 import COLORS from '../global/COLORS';
-import { getAllShops } from '../database/db';
 
-const ItemScreen = ({ navigation, route }) => {
-  const category = route.params;
-  const products = route.params.products;
+const CartScreen = ({ navigation, route }) => {
+  const cart = route.params;
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={products}
+        data={cart}
         keyExtractor={item => item._id}
-        renderItem={({ item }) => <ItemCard data={item} navigation={navigation} />}
+        renderItem={({ item }) => <CartCard data={item} navigation={navigation} />}
         ItemSeparatorComponent={() => <View style={{ borderWidth: 0.5, color: COLORS.gray, opacity: .1 }} />}
         ListHeaderComponent={() => (
-          <>
-            <HeaderComp coverPhoto={category.categoryHeader} />
-            <Text style={{ fontSize: 25, fontWeight: 'bold', color: COLORS.black, marginTop: 10, paddingLeft: 10, }}>{category.categoryName}</Text>
-          </>
-
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingTop: 10, marginBottom: 10, }}>
+            <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.goBack()} />
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Add To Cart</Text>
+          </View>
         )}
       />
-    </View>
+      <TouchableOpacity style={styles.cartButton}>
+        <AntDesign name="shoppingcart" size={25} color="black" style={{ padding: 18 }} />
+      </TouchableOpacity>
+    </View >
   )
 }
 
-const ItemCard = ({ navigation, data }) => {
-  const [allShops, setAllShops] = useState([]);
-
-  useEffect(() => {
-    getAllShops(setAllShops);
-  }, [])
-
-  const handleGotoShopScreen = ({ shop }) => {
-    let data = [];
-    data = allShops.filter(item => {
-      if (shop.foodRestaurant === item.shopName) {
-        return item
-      }
-    })
-
-    navigation.navigate('RestaurantScreen', data[0]);
-  }
-
+const CartCard = ({ navigation, data }) => {
   return (
     <TouchableOpacity style={styles.cardContainer} onPress={() => navigation.navigate('ProductScreen', data)}>
       <View style={{ width: '70%' }}>
@@ -56,11 +39,10 @@ const ItemCard = ({ navigation, data }) => {
           <Entypo name="star" size={14} color="gold" />
           <Text style={{ fontSize: 13, fontWeight: '400', marginLeft: 5 }}>{data.foodRating}.0 · {data.foodRestaurant}</Text>
         </View>
-        <TouchableOpacity style={styles.shopButton} onPress={() => handleGotoShopScreen({ shop: data })}>
-          <Text style={{ color: COLORS.white, fontWeight: 'bold', fontSize: 13 }}> View Shop </Text>
-        </TouchableOpacity>
+        <Text style={{ fontSize: 12, color: COLORS.black, fontWeight: '500' }}> Order Quantity: {data?.orderQuantity}</Text>
+
       </View>
-      <View style={{ width: 70, height: 80, borderRadius: 20, overflow: 'hidden' }}>
+      <View style={{ width: 70, height: 80, borderRadius: 20 }}>
         <Image
           source={{ uri: data.foodImage }}
           resizeMode='contain'
@@ -71,7 +53,7 @@ const ItemCard = ({ navigation, data }) => {
   )
 }
 
-export default ItemScreen
+export default CartScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -93,5 +75,15 @@ const styles = StyleSheet.create({
     width: 90,
     paddingVertical: 7,
     borderRadius: 5,
+  },
+  cartButton: {
+    position: 'absolute',
+    bottom: 50,
+    right: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    elevation: 2,
+    backgroundColor: COLORS.primary
   }
 })

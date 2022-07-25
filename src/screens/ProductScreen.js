@@ -1,18 +1,52 @@
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import COLORS from '../global/COLORS'
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { addToCart } from '../database/db';
+import { addToCart, getCart } from '../database/db';
+import { ToastLongComp } from '../function/ToastFunc';
 
 const ProductScreen = ({ navigation, route }) => {
   const product = route.params;
+  const [quantity, setQuantity] = useState(1);
+  const [carts, setCarts] = useState([]);
+
+  useEffect(() => {
+    getCart(setCarts);
+  }, [carts])
 
   const handleAddToCart = (product) => {
-    addToCart(product);
+    if (quantity > 0) {
+      let tempDb = [];
+      tempDb = carts.filter(item => {
+        if (item._id === product._id) {
+          return item;
+        }
+      })
+
+      if (tempDb.length === 0) {
+        const data = { ...product, orderQuantity: quantity }
+        addToCart(data);
+      } else {
+        Alert.alert('', 'Product Already in the Cart!', [{ text: "Try again", onPress: () => { } }]);
+      }
+    } else {
+      Alert.alert('', 'Add a quantity!', [{ text: "Try again", onPress: () => { } }]);
+    }
+  }
+
+  const handleMinus = () => {
+    if (quantity <= 0) {
+      Alert.alert('', 'Invalid quantity!', [{ text: "Try again", onPress: () => { } }]);
+    } else {
+      setQuantity(prev => prev - 1);
+    }
+  }
+  const handleAdd = () => {
+    setQuantity(prev => prev + 1);
   }
 
   return (
@@ -20,7 +54,7 @@ const ProductScreen = ({ navigation, route }) => {
       <View style={styles.header}>
         <View style={styles.headerButton}>
           <AntDesign name="arrowleft" size={28} color="white" onPress={() => navigation.goBack()} />
-          <FontAwesome5 name="shopping-bag" size={24} color="white" />
+          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen', carts)} />
         </View>
       </View>
       <View style={styles.contentImage}>
@@ -31,6 +65,15 @@ const ProductScreen = ({ navigation, route }) => {
               resizeMode='cover'
               style={styles.image}
             />
+          </View>
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity style={styles.quantityButton} onPress={handleMinus}>
+              <Entypo name="minus" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={{ fontSize: 20, color: COLORS.black, fontWeight: 'bold', marginHorizontal: 15 }}>{quantity}</Text>
+            <TouchableOpacity style={styles.quantityButton} onPress={handleAdd}>
+              <Entypo name="plus" size={24} color="black" />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -118,12 +161,24 @@ const styles = StyleSheet.create({
     width: 250,
     height: 210,
     borderRadius: 40,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   image: {
     borderRadius: 40,
     width: '100%',
     height: '100%',
+    backgroundColor: 'red'
+  },
+  quantityContainer: {
+    position: 'relative',
+    bottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  quantityButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 5,
   },
   contentDetails: {
     flex: 1,
@@ -146,5 +201,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.white,
     elevation: 7
-  }
+  },
 })

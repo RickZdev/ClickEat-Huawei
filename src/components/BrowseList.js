@@ -29,7 +29,7 @@ const BrowseList = () => {
             <Text style={{ marginBottom: 20, fontSize: 12, fontWeight: 'bold', color: COLORS.gray }}>Order food you love</Text>
           </View>
           <Image
-            source={require("../assets/images/bonchon.png")}
+            source={require("../assets/images/all_shops.png")}
             resizeMode='cover'
             style={{ height: 200, width: '100%' }}
           />
@@ -38,8 +38,8 @@ const BrowseList = () => {
           <Text style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.black }}>Type of Food</Text>
           <Text style={{ marginBottom: 10, fontSize: 10, fontWeight: 'bold', color: COLORS.gray, width: 100 }}>Foreign or Filipino Food Lover?</Text>
           <Image
-            source={require("../assets/images/jollibee.png")}
-            resizeMode='cover'
+            source={require("../assets/images/food_type.png")}
+            resizeMode='contain'
             style={{ position: 'absolute', top: 20, height: 40, width: 60, alignSelf: 'flex-end' }}
           />
         </TouchableOpacity>
@@ -50,27 +50,27 @@ const BrowseList = () => {
           <Text style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.black }}>Best Deals</Text>
           <Text style={{ marginBottom: 10, fontSize: 10, fontWeight: 'bold', color: COLORS.gray, width: 100 }}>Deals that you waiting for!</Text>
           <Image
-            source={require("../assets/images/jollibee.png")}
-            resizeMode='cover'
-            style={{ position: 'absolute', top: 50, right: 10, height: 40, width: 60, alignSelf: 'flex-end' }}
+            source={require("../assets/images/deals.png")}
+            resizeMode='contain'
+            style={{ position: 'absolute', top: 20, right: 0, height: 50, width: 90, alignSelf: 'flex-end' }}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.findRestaurant} onPress={() => navigation.navigate('ShopScreen', { data: restaurant, shopCoverPhoto: restaurantCoverPhoto })}>
           <Text style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.black }}>Find Restaurants</Text>
           <Text style={{ marginBottom: 10, fontSize: 10, fontWeight: 'bold', color: COLORS.gray, width: 100 }}>Look for the finest resto in town!</Text>
           <Image
-            source={require("../assets/images/mcdo.png")}
-            resizeMode='cover'
-            style={{ position: 'absolute', top: 40, height: 40, width: 60, alignSelf: 'flex-end' }}
+            source={require("../assets/images/restaurant.png")}
+            resizeMode='contain'
+            style={{ position: 'absolute', top: 30, height: 50, width: 80, alignSelf: 'flex-end' }}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.findFastfood} onPress={() => navigation.navigate('ShopScreen', { data: fastfood, shopCoverPhoto: fastfoodCoverPhoto })}>
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: COLORS.black }}>Find Fastfoods near you</Text>
           <Text style={{ marginBottom: 10, fontSize: 10, fontWeight: 'bold', color: COLORS.gray, width: 100 }}>Convenient Foods coming for you!</Text>
           <Image
-            source={require("../assets/images/kfc.png")}
+            source={require("../assets/images/fastfood.png")}
             resizeMode='contain'
-            style={{ height: 100, width: 100, alignSelf: 'flex-end' }}
+            style={{ height: 100, width: 170, alignSelf: 'flex-end' }}
           />
         </TouchableOpacity>
       </View>

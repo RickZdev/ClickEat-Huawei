@@ -1,21 +1,11 @@
-import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 import COLORS from '../global/COLORS'
 
 const CategoryCard = ({ data }) => {
   const navigation = useNavigation();
-
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const tempDb = [];
-    data.products.map(item => {
-      tempDb.push(item)
-    })
-    setProducts(tempDb);
-  }, [])
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('ItemScreen', data)}>

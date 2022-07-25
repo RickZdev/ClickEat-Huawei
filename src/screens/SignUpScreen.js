@@ -29,10 +29,14 @@ const SignUpForm = ({ navigation }) => {
     <Formik
       initialValues={{ firstName: '', lastName: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
       onSubmit={(values) => {
-        if (values.password === values.confirmPassword) {
-          addAuthenticatedUser(values, navigation)
+        if (values.firstName === '' || values.lastName === '' || values.email === '' || values.phoneNumber === '' || values.password === '' || values.confirmPassword === '') {
+          ToastShortComp("All fields are required!");
         } else {
-          ToastShortComp("Wrong Password");
+          if (values.password === values.confirmPassword) {
+            addAuthenticatedUser(values, navigation)
+          } else {
+            ToastShortComp("Password Do not Match!");
+          }
         }
       }}
     >

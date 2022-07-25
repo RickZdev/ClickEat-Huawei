@@ -5,23 +5,27 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import CategoryList from '../components/CategoryList'
-import { initializeData } from '../database/db'
+import { getCart, initializeData } from '../database/db'
 import COLORS from '../global/COLORS'
 import PopularList from '../components/PopularList'
 import PromoList from '../components/PromoList'
 import BrowseList from '../components/BrowseList'
 import { CustomHomeSkeleton } from '../components/CustomSkeletonCard'
-import { logoutUser } from '../database/authentication'
 
 const HomeScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const [populars, setPopulars] = useState([]);
+  const [carts, setCarts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     initializeData(setCategories, setPopulars, setIsLoading);
   }, [])
+
+  useEffect(() => {
+    getCart(setCarts);
+  }, [carts])
 
   return (
     <ScrollView style={styles.container}>
@@ -38,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
-          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => logoutUser(navigation)} />
+          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen', carts)} />
         </View>
         <View style={styles.headerTitleContainer}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 30, color: 'black' }}></Text>
