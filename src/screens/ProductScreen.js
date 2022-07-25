@@ -1,5 +1,5 @@
-import { Alert, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import COLORS from '../global/COLORS'
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,21 +7,22 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { addToCart, getCart } from '../database/db';
-import { ToastLongComp } from '../function/ToastFunc';
 
 const ProductScreen = ({ navigation, route }) => {
   const product = route.params;
   const [quantity, setQuantity] = useState(1);
-  const [carts, setCarts] = useState([]);
+  const [subtotal, setSubtotal] = useState(0)
+  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    getCart(setCarts);
-  }, [carts])
+  useState(() => {
+    getCart({ setCart, setSubtotal });
+  }, [])
 
   const handleAddToCart = (product) => {
     if (quantity > 0) {
       let tempDb = [];
-      tempDb = carts.filter(item => {
+      tempDb = cart.filter(item => {
+        console.log(item._id, product._id);
         if (item._id === product._id) {
           return item;
         }
@@ -54,7 +55,7 @@ const ProductScreen = ({ navigation, route }) => {
       <View style={styles.header}>
         <View style={styles.headerButton}>
           <AntDesign name="arrowleft" size={28} color="white" onPress={() => navigation.goBack()} />
-          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen', carts)} />
+          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen')} />
         </View>
       </View>
       <View style={styles.contentImage}>

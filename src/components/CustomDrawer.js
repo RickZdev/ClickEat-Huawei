@@ -34,8 +34,8 @@ const CustomDrawer = (props) => {
             </View>
           </TouchableOpacity>
           <View style={styles.userDetailsContainer}>
-            <Text style={styles.userTextName}>{auth.currentUser.displayName}</Text>
-            <Text style={styles.userTextEmail}>{auth.currentUser.email}</Text>
+            <Text style={styles.userTextName}>{auth.currentUser?.displayName}</Text>
+            <Text style={styles.userTextEmail}>{auth.currentUser?.email}</Text>
           </View>
         </View>
         <DrawerItemList {...props} />

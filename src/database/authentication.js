@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth'
+import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { Alert } from "react-native";
 import { ToastShortComp } from "../function/ToastFunc";
 import { addUser } from "./db";

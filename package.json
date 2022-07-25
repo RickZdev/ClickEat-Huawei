@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4.4.2",
     "@nlazzos/react-native-skeleton": "^1.0.3",
     "@react-native-masked-view/masked-view": "^0.2.7",
     "@react-navigation/bottom-tabs": "^6.3.2",
@@ -28,6 +29,7 @@
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
     "react-native-splash-screen": "^3.3.0",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {

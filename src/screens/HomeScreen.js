@@ -16,16 +16,12 @@ const HomeScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const [populars, setPopulars] = useState([]);
-  const [carts, setCarts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     initializeData(setCategories, setPopulars, setIsLoading);
+    console.log("MAIN SCREEN")
   }, [])
-
-  useEffect(() => {
-    getCart(setCarts);
-  }, [carts])
 
   return (
     <ScrollView style={styles.container}>
@@ -42,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
-          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen', carts)} />
+          <FontAwesome5 name="shopping-bag" size={24} color="white" onPress={() => navigation.navigate('CartScreen')} />
         </View>
         <View style={styles.headerTitleContainer}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 30, color: 'black' }}></Text>

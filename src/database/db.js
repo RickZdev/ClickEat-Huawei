@@ -90,15 +90,22 @@ const getAllShops = (setAllShops) => {
     })
 }
 
-const getCart = (setCart) => {
-  axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser.uid}`)
+const getCart = ({ setCart, setSubtotal }) => {
+  axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser?.uid}`)
     .then(res => {
       setCart(res.data?.cart);
+
+      let tempSubTotal = 0;
+      res.data?.cart?.map(item => {
+        tempSubTotal += item.foodPrice * item.orderQuantity;
+      })
+
+      setSubtotal(tempSubTotal);
     })
 }
 
 const addToCart = (data) => {
-  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/add/${auth.currentUser.uid}`, {
+  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/add/${auth.currentUser?.uid}`, {
     ...data
   })
     .then(_res => {
@@ -107,7 +114,7 @@ const addToCart = (data) => {
 }
 
 const removeToCart = (data) => {
-  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/remove/${auth.currentUser.uid}`, {
+  axios.put(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/remove/${auth.currentUser?.uid}`, {
     ...data
   })
     .then(_res => {
@@ -115,8 +122,18 @@ const removeToCart = (data) => {
     })
 }
 
+const deleteCart = () => {
+  axios.patch(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser?.uid}`, {
+    cart: []
+  })
+    .then(_res => {
+      console.log('Payment Success!');
+    }).catch(err => console.log(err.message));
+}
+
+
 export {
   addUser,
   initializeData, getCategory, getPopular, getDifferentShop, getAllShops, getCart,
-  addToCart, removeToCart
+  addToCart, removeToCart, deleteCart
 }
