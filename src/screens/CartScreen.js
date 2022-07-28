@@ -151,7 +151,7 @@ const CartScreen = ({ navigation, route }) => {
 
 const CartCard = ({ navigation, data, isOpen }) => {
   return (
-    <View style={styles.cardContainer} onPress={!isOpen ? () => navigation.navigate('ProductScreen', data) : null}>
+    <View style={styles.cardContainer}>
       <View style={{ width: '70%' }}>
         <Text style={{ fontSize: 13, fontWeight: 'bold', color: COLORS.black, marginBottom: 3 }} numberOfLines={1}>{data.foodName}</Text>
         <Text style={{ fontSize: 13, fontWeight: '400', color: COLORS.black, marginBottom: 5 }}>P {data.foodPrice}</Text>

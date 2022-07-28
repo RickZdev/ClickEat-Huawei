@@ -1,16 +1,47 @@
-import { StyleSheet, View, Text } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, Text, TextInput, Button, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import COLORS from '../global/COLORS'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import HMSMapView, { MapTypes, HMSMarkerView, HMSCircleView, PatternItemTypes } from '@hmscore/react-native-hms-map'
+import { huaweiGetFromLocationName, huaweiGetLocation, huaweiGetLocationByName, huaweiLocationNotification } from './HuaweiLocation';
+import axios from 'axios';
 
 const HuaweiMap = ({ navigation }) => {
-  const latitude = 14.60376489065885;
-  const longitude = 121.09556682843996;
+  const [currentLocation, setCurrentLocation] = useState("");
+  const [newLocation, setNewLocation] = useState("");
 
-  // const latitude = 41;
-  // const longitude = 29;
+  const [markerLocationLat, setMarkerLocationLat] = useState(0);
+  const [markerLocationLong, setMarkerLocationLong] = useState(0);
+  const [locations, setLocations] = useState(0);
+  const [sampleLat, setSampleLat] = useState(0);
+  const [sampleLng, setsampleLng] = useState(0);
+
+  const [address, setAddress] = useState('ayala malls feliz');
+  useEffect(() => {
+    huaweiGetLocation(setCurrentLocation);
+    huaweiGetLocationByName(markerLocationLat, markerLocationLong, setNewLocation);
+    huaweiLocationNotification();
+    if (newLocation === undefined) {
+      setNewLocation("Cannot read location")
+    }
+
+    console.log("NEW LOCATION", newLocation);
+  }, [markerLocationLat])
+
+  useEffect(() => {
+    huaweiGetFromLocationName(address, setLocations)
+    console.log('nice', locations)
+  }, [address])
+
+  useEffect(() => {
+    setSampleLat(locations[0]?.latitude);
+    setsampleLng(locations[0]?.longitude);
+
+    console.log("lat: ", sampleLat)
+    console.log("lng: ", sampleLng)
+  }, [address])
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingVertical: 20, marginBottom: 10, backgroundColor: COLORS.primary, elevation: 7 }}>
@@ -18,13 +49,12 @@ const HuaweiMap = ({ navigation }) => {
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Back To Cart</Text>
       </View>
       <HMSMapView
-        ON
         style={{ height: '50%' }}
         camera={{
-          target: { latitude: latitude, longitude: longitude },
+          // target: { latitude: currentLocation.latitude, longitude: currentLocation.longitude },
+          target: { latitude: sampleLat || currentLocation.latitude, longitude: sampleLng || currentLocation.longitude },
           zoom: 11,
           bearing: 5,
-          tilt: 70,
         }}
         // latLngBoundsForCameraTarget={[
         //   { latitude: 50, longitude: 35 },
@@ -34,7 +64,7 @@ const HuaweiMap = ({ navigation }) => {
         animationDuration={2000}
         // liteMode={true}
         compassEnabled={true}
-        mapType={MapTypes.TERRAIN}
+        mapType={MapTypes.NORMAL}
         // minZoomPreference={10}
         // maxZoomPreference={20}
         rotateGesturesEnabled={true}
@@ -64,41 +94,40 @@ const HuaweiMap = ({ navigation }) => {
         // onCameraMoveCanceled={(e) => console.log("HMSMap onCameraMoveCanceled: ", e.nativeEvent)}
         // onCameraMove={(e) => console.log("HMSMap onCameraMove: ", e.nativeEvent)}
         // onCameraMoveStarted={(e) => console.log("HMSMap onCameraMoveStarted: ", e.nativeEvent)}
-        // onMapClick={(e) => console.log("HMSMap onMapClick: ", e.nativeEvent)}
-        // onMapLoaded={(e) => console.log("HMSMap onMapLoaded: ", e.nativeEvent)}
         // onMapLongClick={(e) => console.log("HMSMap onMapLongClick: ", e.nativeEvent)}
+        // onMapLoaded={(e) => console.log("HMSMap onMapLoaded: ", e.nativeEvent)}
+        // onMyLocationClick={(e) => console.log("HMSMap onMyLocationClick: ", e.nativeEvent)}
+        // onPoiClick={(e) => console.log("HMSMap onPoiClick: ", e.nativeEvent)}
         onMyLocationButtonClick={(e) => console.log("HMSMap onMyLocationButtonClick: ", e.nativeEvent)}
-        onMyLocationClick={(e) => console.log("HMSMap onMyLocationClick: ", e.nativeEvent)}
-      // onPoiClick={(e) => console.log("HMSMap onPoiClick: ", e.nativeEvent)}
-      // onSnapshotReady={(e) => console.log("HMSMap onSnapshotReady: ", e.nativeEvent)}
+        // console.log("HMSMap onMapClick: ", e.nativeEvent.coordinate.latitude)
+        onMapClick={(e) => {
+          setMarkerLocationLat(e.nativeEvent.coordinate.latitude);
+          setMarkerLocationLong(e.nativeEvent.coordinate.longitude);
+          console.log(markerLocationLat)
+          console.log(markerLocationLong)
+        }}
       >
         <HMSMarkerView // Simple example
-          coordinate={{ latitude: latitude, longitude: longitude }}
-          title="Hello Huawei Map"
-          snippet="This is a snippet!"
-          draggable={true}
+          coordinate={{ latitude: markerLocationLat, longitude: markerLocationLong }}
         />
-        {/* <HMSCircleView // Simple example
-          center={{ latitude: latitude, longitude: longitude }}
-          radius={9000}
+
+        <HMSMarkerView // Simple example
+          coordinate={{ latitude: sampleLat || 0, longitude: sampleLng || 0 }}
         />
-        <HMSCircleView // Complex example
-          center={{ latitude: latitude, longitude: longitude }}
-          radius={9000}
-          clickable={true}
-          fillColor={[144, 0, 114, 255]} // transparent blue(0x900072FF)
-          strokeWidth={10}
-          strokeColor={-256} // yellow(0xFFFFFF00)
-          strokePattern={[
-            { type: PatternItemTypes.DASH, length: 20 },
-            { type: PatternItemTypes.DOT },
-            { type: PatternItemTypes.GAP, length: 20 },
-          ]}
-          visible={true}
-          zIndex={2}
-          onClick={(e) => console.log("HMSCircle onClick: ", e.nativeEvent)}
-        /> */}
       </HMSMapView>
+      <Text>{newLocation?.street}</Text>
+      <TextInput placeholder='enter address' onChangeText={(text) => setAddress(text)} />
+      <Text>{address}</Text>
+
+      <FlatList
+        data={locations}
+        keyExtractor={item => item.latitude}
+        renderItem={({ item }) => (
+          <View style={{ backgroundColor: COLORS.primary, marginBottom: 5 }}>
+            <Text>{item.street}</Text>
+          </View>
+        )}
+      />
     </View>
   )
 }

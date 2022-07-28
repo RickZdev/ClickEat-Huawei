@@ -3,7 +3,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './src/navigation/AuthStack';
 import { LogBox } from 'react-native';
-import HuaweiMap from './src/hms-kit/HuaweiMap';
 
 const App = () => {
   LogBox.ignoreLogs(['Warning: AsyncStorage has been extracted from react-native core']);
@@ -12,7 +11,6 @@ const App = () => {
     <NavigationContainer>
       <AuthStack />
     </NavigationContainer>
-    // <HuaweiMap />
   );
 };
 

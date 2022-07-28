@@ -6,6 +6,8 @@ include ':react-native-hms-map'
 project(':react-native-hms-map').projectDir = new File(rootProject.projectDir, '../node_modules/@hmscore/react-native-hms-map/android')
 include ':react-native-hms-account'
 project(':react-native-hms-account').projectDir = new File(rootProject.projectDir, '../node_modules/@hmscore/react-native-hms-account/android')
+include ':react-native-hms-location'
+project(':react-native-hms-location').projectDir = new File(rootProject.projectDir, '../node_modules/@hmscore/react-native-hms-location/android')
 
 if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
     include(":ReactAndroid")

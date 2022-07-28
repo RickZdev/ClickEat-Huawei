@@ -14,7 +14,7 @@ const huaweiSilentSignIn = (setAuthenticatedUser, setIsLoading) => {
     HMSAuthRequestOptionConstants.MOBILENUMBER,
     HMSAuthRequestOptionConstants.UID
     ],
-    authScopeList: [HMSAuthScopeListConstants.EMAIL]
+    authScopeList: [HMSAuthScopeListConstants.EMAIL, HMSAuthScopeListConstants.PROFILE]
   };
   HMSAccountAuthService.silentSignIn(silentSignInData)
     .then((response) => {
@@ -35,9 +35,10 @@ const huaweiAuth = (navigation) => {
       HMSAuthRequestOptionConstants.ID_TOKEN,
       HMSAuthRequestOptionConstants.ACCESS_TOKEN,
       HMSAuthRequestOptionConstants.CARRIERID,
-      HMSAuthRequestOptionConstants.CARRIERID,
       HMSAuthRequestOptionConstants.MOBILENUMBER,
-      HMSAuthRequestOptionConstants.UID],
+      HMSAuthRequestOptionConstants.UID,
+      HMSAuthRequestOptionConstants.EMAIL,
+    ],
     authScopeList: [HMSAuthScopeListConstants.EMAIL, HMSAuthScopeListConstants.PROFILE]
   };
 

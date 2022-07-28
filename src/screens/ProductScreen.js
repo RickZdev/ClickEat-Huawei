@@ -16,6 +16,7 @@ const ProductScreen = ({ navigation, route }) => {
 
   useState(() => {
     getCart({ setCart, setSubtotal });
+    console.log(product)
   }, [])
 
   const handleAddToCart = (product) => {

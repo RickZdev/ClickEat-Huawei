@@ -270,6 +270,8 @@ dependencies {
     implementation project(':react-native-hms-map')
     implementation "com.huawei.hms:hwid:6.4.0.301"
     implementation project(':react-native-hms-account')
+    implementation "com.huawei.hms:location:6.4.0.300"
+    implementation project(':react-native-hms-location')
 
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

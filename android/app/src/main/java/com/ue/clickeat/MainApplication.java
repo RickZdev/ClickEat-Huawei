@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.huawei.hms.rn.map.HMSMapPackage;
 import com.huawei.hms.rn.account.HMSAccountPackage;
+import com.huawei.hms.rn.location.RNHMSLocationPackage;
 
 
 
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
             packages.add(new HMSMapPackage());
             packages.add(new HMSAccountPackage());
+            packages.add(new RNHMSLocationPackage());
           return packages;
         }
 

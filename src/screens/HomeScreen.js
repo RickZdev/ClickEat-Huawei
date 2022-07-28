@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View, Animated, TouchableOpacity, ScrollView, TextInput, Image } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, Animated, TouchableOpacity, ScrollView, TextInput, Image, Alert } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -12,14 +12,17 @@ import PopularList from '../components/PopularList'
 import PromoList from '../components/PromoList'
 import BrowseList from '../components/BrowseList'
 import { CustomHomeSkeleton } from '../components/CustomSkeletonCard'
-import { auth } from '../database/authentication'
+import { huaweiGetLocation } from '../hms-kit/HuaweiLocation'
 
 const HomeScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const [populars, setPopulars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentLocation, setCurrentLocation] = useState("");
   useEffect(() => {
+    huaweiGetLocation(setCurrentLocation);
+    console.log(" niceee", currentLocation)
     initializeData(setCategories, setPopulars, setIsLoading);
   }, [])
 
@@ -34,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={{ fontSize: 15, fontWeight: 'bold', color: COLORS.black }}>Current Location</Text>
               <View style={{ flexDirection: 'row' }}>
                 <FontAwesome name="map-pin" size={16} color="red" />
-                <Text style={{ fontSize: 12, width: 200, color: COLORS.black, marginLeft: 5 }} numberOfLines={1}>#15 D.K MAGSAYSAY STREET, PASIG CITY</Text>
+                <Text style={{ fontSize: 12, width: 200, color: COLORS.black, marginLeft: 5 }} numberOfLines={1}>{currentLocation.street}</Text>
               </View>
             </View>
           </View>
