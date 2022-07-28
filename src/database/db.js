@@ -29,10 +29,8 @@ const initializeData = (setCategories, setPopulars, setIsLoading) => {
         tempDb = products.data.filter(item => {
           return item.isPopular === true;
         })
-
         setPopulars(tempDb);
         setIsLoading(false);
-
       })
     )
 }
@@ -90,8 +88,8 @@ const getAllShops = (setAllShops) => {
     })
 }
 
-const getCart = ({ setCart, setSubtotal }) => {
-  axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser?.uid}`)
+const getCart = async ({ setCart, setSubtotal }) => {
+  axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth?.currentUser?.uid}`)
     .then(res => {
       setCart(res.data?.cart);
 

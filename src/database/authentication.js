@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { Alert } from "react-native";
 import { ToastShortComp } from "../function/ToastFunc";
+import { huaweiSignOut } from "../hms-kit/HuaweiAccount";
 import { addUser } from "./db";
 
 const firebaseConfig = {
@@ -20,7 +21,7 @@ const auth = getAuth(app);
 // authentication
 const addAuthenticatedUser = async (values, navigation) => {
   try {
-    firstName, lastName, email, phoneNumber, password
+    firstName, lastName, email, phoneNumber
     const { firstName, lastName, email, phoneNumber, password } = values;
     const fullName = `${firstName} ${lastName}`;
     await createUserWithEmailAndPassword(auth, email, password)
@@ -35,7 +36,7 @@ const addAuthenticatedUser = async (values, navigation) => {
       photoURL: auth.currentUser.photoURL,
       _id: auth.currentUser.uid
     }
-    addUser({ ...values, ...extraInfo });
+    addUser({ firstName, lastName, email, phoneNumber, ...extraInfo });
     ToastShortComp('Account Created Successfully!')
     navigation.goBack();
   } catch (err) {
@@ -60,6 +61,7 @@ const loginUser = async (email, password, navigation) => {
 const logoutUser = async (navigation) => {
   try {
     await signOut(auth)
+    huaweiSignOut();
     ToastShortComp('Logged out Successfully!')
     navigation.replace('LoginScreen');
   } catch (error) {
@@ -67,4 +69,6 @@ const logoutUser = async (navigation) => {
   }
 }
 
-export { auth, addAuthenticatedUser, loginUser, logoutUser }
+export {
+  auth, addAuthenticatedUser, loginUser, logoutUser,
+}

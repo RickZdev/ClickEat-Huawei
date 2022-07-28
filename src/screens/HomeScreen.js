@@ -4,23 +4,23 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
+
 import CategoryList from '../components/CategoryList'
-import { getCart, initializeData } from '../database/db'
+import { initializeData } from '../database/db'
 import COLORS from '../global/COLORS'
 import PopularList from '../components/PopularList'
 import PromoList from '../components/PromoList'
 import BrowseList from '../components/BrowseList'
 import { CustomHomeSkeleton } from '../components/CustomSkeletonCard'
+import { auth } from '../database/authentication'
 
 const HomeScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const [populars, setPopulars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     initializeData(setCategories, setPopulars, setIsLoading);
-    console.log("MAIN SCREEN")
   }, [])
 
   return (

@@ -44,13 +44,19 @@ const CartScreen = ({ navigation, route }) => {
   }
 
   const handleConfirmOrder = () => {
-    deleteCart();
-    setCartDb(cartDb.filter(item => {
-      if (item === data) {
-        return item
-      }
-    }))
-    Alert.alert('', 'Thank you for your order!', [{ text: "Okay", onPress: () => { } }]);
+    // if (cartDb.length === 0) {
+    //   Alert.alert('', "Please add product in your cart first!", [{ text: "Okay", onPress: () => { } }]);
+    // }
+
+    navigation.navigate('MapScreen');
+
+    // deleteCart();
+    // setCartDb(cartDb.filter(item => {
+    //   if (item === data) {
+    //     return item
+    //   }
+    // }))
+    // Alert.alert('', 'Thank you for your order!', [{ text: "Okay", onPress: () => { } }]);
   }
 
   const hiddenItem = (data) => {

@@ -14,7 +14,7 @@ const CustomDrawer = (props) => {
   const [imageUri, setImageUri] = useState('https://firebasestorage.googleapis.com/v0/b/shopping-app-be469.appspot.com/o/images%2Favatar%2Favatar.jpg?alt=media&token=e351f21f-5741-400a-9355-3fcf08865644');
 
   const handleLogoutUser = () => {
-    logoutUser(navigation)
+    logoutUser(navigation);
   }
 
   return (
@@ -27,7 +27,7 @@ const CustomDrawer = (props) => {
           <TouchableOpacity style={styles.avatarContainer}>
             <View style={styles.photoContainer}>
               <Image
-                source={{ uri: imageUri }}
+                source={{ uri: auth.currentUser?.photoURL === '' ? imageUri : auth.currentUser?.photoURL }}
                 resizeMode='cover'
                 style={styles.avatar}
               />

@@ -266,7 +266,11 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
-//    implementation project(':react-native-hms-map')
+    implementation "com.huawei.hms:maps:6.3.1.304"
+    implementation project(':react-native-hms-map')
+    implementation "com.huawei.hms:hwid:6.4.0.301"
+    implementation project(':react-native-hms-account')
+
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'

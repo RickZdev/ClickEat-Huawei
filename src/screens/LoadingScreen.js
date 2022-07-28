@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { auth } from '../database/authentication'
 import MenuDrawer from '../navigation/MenuDrawer'
