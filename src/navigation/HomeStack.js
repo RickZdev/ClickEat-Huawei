@@ -8,6 +8,7 @@ import ShopScreen from '../screens/ShopScreen'
 import ItemScreen from '../screens/ItemScreen'
 import UnderConstructionScreen from '../screens/UnderConstructionScreen'
 import RestaurantScreen from '../screens/RestaurantScreen'
+import ReviewScreen from '../screens/ReviewScreen'
 import HuaweiMap from '../hms-kit/HuaweiMap'
 // import HuaweiMap from '../hms-kit/HuaweiMap'
 
@@ -22,6 +23,7 @@ const HomeStack = () => {
       <Stack.Screen name="ShopScreen" component={ShopScreen} />
       <Stack.Screen name="ItemScreen" component={ItemScreen} />
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+      <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
       <Stack.Screen name="MapScreen" component={HuaweiMap} />
       <Stack.Screen name="UnderConstructionScreen" component={UnderConstructionScreen} />
     </Stack.Navigator>

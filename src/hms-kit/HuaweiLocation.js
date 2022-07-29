@@ -108,13 +108,23 @@ const huaweiGetFromLocationName = (locationName, setLocations) => {
   const getFromLocationNameRequest = {
     locationName: locationName,
     maxResults: 20,
-    lowerLeftLatitude: 14.52452444161395,
-    lowerLeftLongitude: 121.09071455568746,
-    upperRightLatitude: 17.40249419246226,
-    upperRightLongitude: 121.1473288124462,
+    // lowerLeftLatitude: 14.52452444161395,
+    // lowerLeftLongitude: 121.09071455568746,
+    // upperRightLatitude: 17.40249419246226,
+    // upperRightLongitude: 121.1473288124462,
+    upperRightLatitude: 18.39312,
+    upperRightLongitude: 122.21818,
+    lowerLeftLatitude: 7.66840,
+    lowerLeftLongitude: 116.93399,
+
   }
 
-  HMSLocation.Geocoder.Native.getFromLocationName(getFromLocationNameRequest, null)
+  const locale = {
+    language: 'en',
+    country: 'ph'
+  }
+
+  HMSLocation.Geocoder.Native.getFromLocationName(getFromLocationNameRequest, locale)
     .then((hwLocationList) => {
       let tempDb = []
       hwLocationList.map(item => {

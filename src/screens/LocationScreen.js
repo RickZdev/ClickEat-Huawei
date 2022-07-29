@@ -13,7 +13,7 @@ const LocationScreen = ({ navigation }) => {
         style={styles.image}
       />
       <Text style={styles.text}>Turn On Location & Allow Location Permission to use the app for better user experience.</Text>
-      <Text style={styles.text}>(Refresh the app after you turn on location or allow permission it.)</Text>
+      <Text style={styles.text}>(Restart the app after you turn on location or allow permission.)</Text>
     </View>
   )
 }

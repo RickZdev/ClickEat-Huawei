@@ -66,6 +66,7 @@ export default SignUpScreen
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: COLORS.primary,
     paddingHorizontal: 25,
     justifyContent: 'center',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     elevation: 15,
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
-    marginTop: 30
+    marginTop: 30,
   },
   formContainer: {
     marginTop: 40,

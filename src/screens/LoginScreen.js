@@ -19,7 +19,6 @@ const LoginScreen = ({ navigation }) => {
           <Text style={{ fontSize: 16, color: COLORS.black }}>Good  to see you back!</Text>
         </View>
         <LoginForm navigation={navigation} />
-
       </View>
     </ScrollView>
   )
@@ -70,18 +69,17 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: COLORS.primary,
     paddingHorizontal: 25,
     justifyContent: 'center',
   },
   contentContainer: {
-    flex: 1,
     backgroundColor: COLORS.white,
     elevation: 15,
     borderTopStartRadius: 50,
     borderTopEndRadius: 50,
     marginTop: 30,
+    paddingBottom: 150
   },
   formContainer: {
     marginTop: 40,
@@ -94,6 +92,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 60,
     marginBottom: 15,
     borderRadius: 20,
-
   }
 })

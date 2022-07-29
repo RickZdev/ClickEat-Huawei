@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, Button, FlatList } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Button, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import COLORS from '../global/COLORS'
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -10,6 +10,7 @@ import axios from 'axios';
 const HuaweiMap = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState("");
   const [newLocation, setNewLocation] = useState("");
+  const [changedLocation, setChangedLocation] = useState("");
 
   const [markerLocationLat, setMarkerLocationLat] = useState(0);
   const [markerLocationLong, setMarkerLocationLong] = useState(0);
@@ -42,18 +43,25 @@ const HuaweiMap = ({ navigation }) => {
     console.log("lng: ", sampleLng)
   }, [address])
 
+  const handleChangedLocation = (item) => {
+    setNewLocation(item);
+    setSampleLat(item.latitude);
+    setsampleLng(item.longitude);
+  }
+
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingVertical: 20, marginBottom: 10, backgroundColor: COLORS.primary, elevation: 7 }}>
-        <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.goBack()} />
+      <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingVertical: 20, marginBottom: 20, backgroundColor: COLORS.primary, elevation: 7 }}>
+        <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.navigate('ReviewScreen', newLocation)} />
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Back To Cart</Text>
       </View>
+      <Text>Delivery Address</Text>
       <HMSMapView
-        style={{ height: '50%' }}
+        style={{ height: '50%', width: '100%' }}
         camera={{
           // target: { latitude: currentLocation.latitude, longitude: currentLocation.longitude },
-          target: { latitude: sampleLat || currentLocation.latitude, longitude: sampleLng || currentLocation.longitude },
-          zoom: 11,
+          target: { latitude: sampleLat || currentLocation.latitude || 0, longitude: sampleLng || currentLocation.longitude || 0 },
+          zoom: 18,
           bearing: 5,
         }}
         // latLngBoundsForCameraTarget={[
@@ -103,6 +111,8 @@ const HuaweiMap = ({ navigation }) => {
         onMapClick={(e) => {
           setMarkerLocationLat(e.nativeEvent.coordinate.latitude);
           setMarkerLocationLong(e.nativeEvent.coordinate.longitude);
+          setSampleLat(e.nativeEvent.coordinate.latitude)
+          setsampleLng(e.nativeEvent.coordinate.longitude)
           console.log(markerLocationLat)
           console.log(markerLocationLong)
         }}
@@ -115,6 +125,7 @@ const HuaweiMap = ({ navigation }) => {
           coordinate={{ latitude: sampleLat || 0, longitude: sampleLng || 0 }}
         />
       </HMSMapView>
+
       <Text>{newLocation?.street}</Text>
       <TextInput placeholder='enter address' onChangeText={(text) => setAddress(text)} />
       <Text>{address}</Text>
@@ -123,9 +134,9 @@ const HuaweiMap = ({ navigation }) => {
         data={locations}
         keyExtractor={item => item.latitude}
         renderItem={({ item }) => (
-          <View style={{ backgroundColor: COLORS.primary, marginBottom: 5 }}>
+          <TouchableOpacity style={{ backgroundColor: COLORS.primary, marginBottom: 5 }} onPress={() => handleChangedLocation(item)}>
             <Text>{item.street}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

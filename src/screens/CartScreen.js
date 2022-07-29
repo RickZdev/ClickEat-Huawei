@@ -48,7 +48,7 @@ const CartScreen = ({ navigation, route }) => {
     //   Alert.alert('', "Please add product in your cart first!", [{ text: "Okay", onPress: () => { } }]);
     // }
 
-    navigation.navigate('MapScreen');
+    navigation.navigate('ReviewScreen');
 
     // deleteCart();
     // setCartDb(cartDb.filter(item => {
