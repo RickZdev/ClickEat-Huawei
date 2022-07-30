@@ -9,8 +9,8 @@ import ItemScreen from '../screens/ItemScreen'
 import UnderConstructionScreen from '../screens/UnderConstructionScreen'
 import RestaurantScreen from '../screens/RestaurantScreen'
 import ReviewScreen from '../screens/ReviewScreen'
-import HuaweiMap from '../hms-kit/HuaweiMap'
-// import HuaweiMap from '../hms-kit/HuaweiMap'
+import ConfirmScreen from '../screens/ConfirmScreen'
+import EditMapScreen from '../screens/EditMapScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +24,8 @@ const HomeStack = () => {
       <Stack.Screen name="ItemScreen" component={ItemScreen} />
       <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
       <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
-      <Stack.Screen name="MapScreen" component={HuaweiMap} />
+      <Stack.Screen name="EditMapScreen" component={EditMapScreen} />
+      <Stack.Screen name="ConfirmScreen" component={ConfirmScreen} />
       <Stack.Screen name="UnderConstructionScreen" component={UnderConstructionScreen} />
     </Stack.Navigator>
   )

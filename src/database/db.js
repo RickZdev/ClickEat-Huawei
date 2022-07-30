@@ -88,16 +88,24 @@ const getAllShops = (setAllShops) => {
     })
 }
 
-const getCart = async ({ setCart, setSubtotal }) => {
+const getCart = async ({ setCart, setSubtotal, setRestaurantAddress }) => {
   axios.get(`http://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth?.currentUser?.uid}`)
     .then(res => {
       setCart(res.data?.cart);
 
       let tempSubTotal = 0;
+      let tempRestaurantAddress = [];
       res.data?.cart?.map(item => {
         tempSubTotal += item.foodPrice * item.orderQuantity;
+
+        if (!tempRestaurantAddress.includes(item.foodRestaurant + " - " + item.foodLocation)) {
+          tempRestaurantAddress.push(item.foodRestaurant + " - " + item.foodLocation);
+        }
       })
 
+      if (setRestaurantAddress) {
+        setRestaurantAddress(tempRestaurantAddress);
+      }
       setSubtotal(tempSubTotal);
     })
 }
@@ -124,11 +132,9 @@ const deleteCart = () => {
   axios.patch(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/${auth.currentUser?.uid}`, {
     cart: []
   })
-    .then(_res => {
-      console.log('Payment Success!');
-    }).catch(err => console.log(err.message));
+    .then(_res => { })
+    .catch(err => console.log(err.message));
 }
-
 
 export {
   addUser,

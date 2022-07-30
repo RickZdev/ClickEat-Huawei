@@ -1,10 +1,9 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import COLORS from '../global/COLORS'
 
-const LocationScreen = ({ navigation }) => {
+const LocationScreen = () => {
   return (
     <View style={styles.container}>
       <Image

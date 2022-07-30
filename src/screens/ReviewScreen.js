@@ -10,7 +10,8 @@ import { huaweiGetLocation } from '../hms-kit/HuaweiLocation';
 
 const ReviewScreen = ({ navigation, route }) => {
   const [currentLocation, setCurrentLocation] = useState({})
-  const [selectedPayment, setSelectedPayment] = useState();
+  const [selectedPayment, setSelectedPayment] = useState(null);
+  const [payment, setPayment] = useState("");
 
   const newLocation = route?.params || 0;
 
@@ -31,13 +32,13 @@ const ReviewScreen = ({ navigation, route }) => {
 
   const handleTogglePayment = (item, index) => {
     setSelectedPayment(index);
-    console.log(item.method);
+    setPayment(item.method)
   }
   const handleCheckout = () => {
-    if (selectedPayment) {
-      Alert.alert("", "NICE CHECKOUT");
+    if (selectedPayment !== null) {
+      navigation.navigate('ConfirmScreen', { deliveryAddress: newLocation !== 0 ? newLocation : currentLocation, payment })
     } else {
-      Alert.alert("", "OPS LAGAY KA MUNA NG PAYMENT METHOD")
+      Alert.alert("", "Please choose your payment method first")
     }
   }
 
@@ -51,7 +52,7 @@ const ReviewScreen = ({ navigation, route }) => {
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Back To Cart</Text>
       </View>
 
-      <TouchableOpacity style={styles.contentContainer} onPress={() => navigation.navigate('MapScreen')} activeOpacity={.8}>
+      <TouchableOpacity style={styles.contentContainer} onPress={() => navigation.navigate('EditMapScreen')} activeOpacity={.8}>
         <View style={styles.contentHeader}>
           <View style={{ flexDirection: 'row' }}>
             <Entypo name="location" size={22} color="black" />

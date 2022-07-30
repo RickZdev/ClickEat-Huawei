@@ -5,7 +5,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import HMSMapView, { MapTypes, HMSMarkerView, HMSCircleView, PatternItemTypes } from '@hmscore/react-native-hms-map'
 import { huaweiGetFromLocationName, huaweiGetLocation, huaweiGetLocationByName, huaweiLocationNotification } from './HuaweiLocation';
-import axios from 'axios';
 
 const HuaweiMap = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState("");

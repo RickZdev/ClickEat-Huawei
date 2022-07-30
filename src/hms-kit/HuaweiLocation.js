@@ -107,7 +107,7 @@ const huaweiLocationNotification = () => {
 const huaweiGetFromLocationName = (locationName, setLocations) => {
   const getFromLocationNameRequest = {
     locationName: locationName,
-    maxResults: 20,
+    maxResults: 50,
     // lowerLeftLatitude: 14.52452444161395,
     // lowerLeftLongitude: 121.09071455568746,
     // upperRightLatitude: 17.40249419246226,

@@ -16,14 +16,12 @@ const ProductScreen = ({ navigation, route }) => {
 
   useState(() => {
     getCart({ setCart, setSubtotal });
-    console.log(product)
   }, [])
 
   const handleAddToCart = (product) => {
     if (quantity > 0) {
       let tempDb = [];
       tempDb = cart.filter(item => {
-        console.log(item._id, product._id);
         if (item._id === product._id) {
           return item;
         }

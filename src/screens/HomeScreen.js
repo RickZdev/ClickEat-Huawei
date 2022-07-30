@@ -4,7 +4,6 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-
 import CategoryList from '../components/CategoryList'
 import { initializeData } from '../database/db'
 import COLORS from '../global/COLORS'
@@ -22,7 +21,6 @@ const HomeScreen = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState("");
   useEffect(() => {
     huaweiGetLocation(setCurrentLocation);
-    console.log(" niceee", currentLocation)
     initializeData(setCategories, setPopulars, setIsLoading);
   }, [])
 

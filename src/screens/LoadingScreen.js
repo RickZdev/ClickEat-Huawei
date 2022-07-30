@@ -15,13 +15,10 @@ const LoadingScreen = ({ navigation }) => {
     huaweiLocationCheckSettings(setIsLocationAvailable)
     huaweiRequestLocationPermission();
     huaweiRequestLocationUpdatesWithCallback();
-    console.log('hahaha')
     auth.onAuthStateChanged(user => {
       setAuthenticatedUser(user)
     })
   }, [])
-
-
 
   const onRefresh = () => {
     setRefreshing(true)
