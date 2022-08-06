@@ -4,6 +4,7 @@ import { HMSAccountAuthService, HMSAuthParamConstants, HMSAuthRequestOptionConst
 import { auth, loginUser } from "../database/authentication";
 import { addUser } from "../database/db";
 import { ToastShortComp } from "../function/ToastFunc";
+import { Alert } from "react-native";
 
 const huaweiSilentSignIn = (setAuthenticatedUser, setIsLoading) => {
   let silentSignInData = {
@@ -46,7 +47,13 @@ const huaweiAuth = (navigation) => {
     .then((response) => {
       axios.get(`https://huaweifoodappformyapi.herokuapp.com/api/user/id/huawei/${response.openId}`)
         .then(res => {
-          if (res.data === null) {
+          if (response.email === '') {
+            Alert.alert("Sorry", "Please provide your email address on your huawei id before using this feature.");
+            huaweiSignOut();
+          } else if (response.email === null) {
+            Alert.alert("Sorry", "Please allow our app to obtain your email address to use this feature.");
+            huaweiSignOut();
+          } else if (res.data === null) {
             let data = {
               _id: response.openId,
               firstName: response.givenName,

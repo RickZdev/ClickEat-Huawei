@@ -25,7 +25,7 @@ const ConfirmScreen = ({ navigation, route }) => {
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
         <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.goBack()} />
-        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Back To Review Payment and Address</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.black, paddingLeft: 15, }}>Check Out</Text>
       </View>
       <View style={{ backgroundColor: COLORS.primary, borderRadius: 50, paddingTop: 20, flex: 1, }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40, paddingBottom: 20 }}>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 10,
+    paddingLeft: 20,
     paddingTop: 20,
     marginBottom: 20,
   },

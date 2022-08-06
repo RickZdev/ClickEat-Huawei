@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Switch, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -31,14 +31,19 @@ const ReviewScreen = ({ navigation, route }) => {
   ]
 
   const handleTogglePayment = (item, index) => {
+    if (index === 1 || index === 2) {
+      Alert.alert("Sorry", 'This feature is not yet available. Please choose different method.')
+    }
     setSelectedPayment(index);
     setPayment(item.method)
   }
   const handleCheckout = () => {
-    if (selectedPayment !== null) {
+    if (selectedPayment === 0) {
       navigation.navigate('ConfirmScreen', { deliveryAddress: newLocation !== 0 ? newLocation : currentLocation, payment })
+    } else if (selectedPayment == 1 || selectedPayment == 2) {
+      Alert.alert("", "Please choose different payment method.")
     } else {
-      Alert.alert("", "Please choose your payment method first")
+      Alert.alert("", "Please choose your payment method first.")
     }
   }
 
@@ -49,7 +54,7 @@ const ReviewScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.goBack()} />
-        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Back To Cart</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Payment And Address</Text>
       </View>
 
       <TouchableOpacity style={styles.contentContainer} onPress={() => navigation.navigate('EditMapScreen')} activeOpacity={.8}>
@@ -79,10 +84,7 @@ const ReviewScreen = ({ navigation, route }) => {
         <View style={[styles.contentHeader, { borderBottomWidth: 1, borderBottomColor: COLORS.primary }]}>
           <View style={{ flexDirection: 'row' }}>
             <MaterialIcons name="payment" size={22} color="black" />
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.black, marginLeft: 10 }}>Edit Payment Method</Text>
-          </View>
-          <View>
-            <AntDesign name="edit" size={23} color="black" />
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.black, marginLeft: 10 }}>Choose Payment Method</Text>
           </View>
         </View>
         <View>

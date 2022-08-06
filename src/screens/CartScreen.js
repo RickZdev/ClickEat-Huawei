@@ -91,7 +91,7 @@ const CartScreen = ({ navigation, route }) => {
         ListHeaderComponent={() => (
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingVertical: 20, marginBottom: 10, backgroundColor: COLORS.primary, elevation: 7 }}>
             <AntDesign name="arrowleft" size={28} color="black" onPress={() => navigation.goBack()} />
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Add To Cart</Text>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.black, paddingLeft: 20, }}>Cart</Text>
           </View>
         )}
         style={{ opacity: isOpen ? .5 : 1 }}
